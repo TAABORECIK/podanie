@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dołącz do firmy ETS2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, button {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dołącz do firmy ETS2</h1>
+        <form id="applicationForm">
+            <input type="text" id="name" placeholder="Twoje imię" required>
+            <input type="email" id="email" placeholder="Twój e-mail" required>
+            <textarea id="reason" placeholder="Dlaczego chcesz dołączyć?" rows="5" required></textarea>
+            <button type="submit">Wyślij podanie</button>
+        </form>
+        <p id="confirmationMessage" style="display:none;">Twoje podanie zostało wysłane!</p>
+    </div>
+
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Pobranie danych z formularza
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const reason = document.getElementById('reason').value;
+
+            // Przechowywanie danych w localStorage (zamiast bazy danych)
+            let applications = JSON.parse(localStorage.getItem('applications')) || [];
+            applications.push({ name, email, reason });
+            localStorage.setItem('applications', JSON.stringify(applications));
+
+            // Pokazanie potwierdzenia
+            document.getElementById('confirmationMessage').style.display = 'block';
+            alert('Podanie zostało wysłane do akceptacji.');
+        });
+    </script>
+</body>
+</html>
